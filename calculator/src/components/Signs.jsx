@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import '../styles/numbers.css';
 
-class Numbers extends Component {
+class Signs extends Component {
   render() {
-    const { value } = this.props;
+    const { value, className } = this.props;
     return (
       <>
         <button
-          className={`button-number num-${value}`}
-          data-testid={`button-number-${value}`}
+          className={`button-number ${value} ${className} signs`}
           value={value}
           id={value}
         >
@@ -19,4 +18,4 @@ class Numbers extends Component {
   }
 }
 
-export default Numbers;
+export default Signs;
