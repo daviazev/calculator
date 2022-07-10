@@ -3,10 +3,11 @@ import '../styles/numbers.css';
 
 class Signs extends Component {
   render() {
-    const { value, className } = this.props;
+    const { value, className, handleClick } = this.props;
     return (
       <>
         <button
+          onClick={handleClick}
           className={`button-number ${value} ${className} signs`}
           value={value}
           id={value}
