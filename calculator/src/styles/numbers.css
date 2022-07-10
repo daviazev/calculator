@@ -1,4 +1,36 @@
 .button-number {
-  padding: 16px;
-  margin: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 10px 10px;
+  background-color: #1f1f1f;
+  color: #fbfbfb;
+  border-radius: 50%;
+  border: none;
+  font-size: 30px;
+}
+
+.button-number:active {
+  transition: 0.25s;
+  background-color: #4b4b4b;
+  font-size: 20px;
+}
+
+.signs {
+  color: #94d651;
+}
+
+#equal-button {
+  background-color: #427e04;
+  font-size: 35px;
+}
+
+#equal-button:active {
+  background-color: #679630;
+}
+
+#clear-button {
+  color: #e17574;
 }
