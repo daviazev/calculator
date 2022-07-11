@@ -8,14 +8,30 @@ body {
   background-color: #010101;
 }
 
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .main {
   display: flex;
   flex-direction: column;
 }
 
-.red {
+.result-container {
+  display: flex;
+  justify-content: end;
+  /* align-items: center; */
+  margin: 2px;
   color: white;
   height: 35vh;
+}
+
+.result {
+  /* background-color: red; */
+  padding: 8px;
+  margin: 30px;
+  font-size: 40px;
 }
 
 .hr-div {
