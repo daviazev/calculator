@@ -9,13 +9,12 @@ class Main extends Component {
     super();
 
     this.state = {
-      result: '',
       typed: '',
+      result: '',
     };
   }
 
   handleClick = ({ target: { value } }) => {
-    console.log(value);
     const { typed } = this.state;
     this.setState({
       typed: typed + value,
@@ -25,17 +24,64 @@ class Main extends Component {
   clean = () => {
     this.setState({
       typed: '',
+      result: '',
     });
   };
 
-  render() {
+  result = () => {
     const { typed } = this.state;
+    const arrayFrom = Array.from(typed);
+    const findSign = arrayFrom.find(
+      (e) => e === '+' || e === '-' || e === 'x' || e === '/'
+    );
+    const arrayOfNumbers = typed.split(findSign);
+    console.log(arrayOfNumbers);
+
+    this.showResult(arrayOfNumbers, findSign);
+  };
+
+  showResult = (numbers, sign) => {
+    const toFloat = numbers.map((num) => parseFloat(num));
+
+    if (sign === '+') {
+      const result = toFloat.reduce((acc, curr) => acc + curr);
+      console.log(result);
+      this.setState({
+        result: result,
+        typed: '',
+      });
+    } else if (sign === '-') {
+      const result = toFloat.reduce((acc, curr) => acc - curr);
+      console.log(result);
+      this.setState({
+        result: result,
+        typed: '',
+      });
+    } else if (sign === 'x') {
+      const result = toFloat.reduce((acc, curr) => acc * curr);
+      console.log(result);
+      this.setState({
+        result: result,
+        typed: '',
+      });
+    } else {
+      const result = toFloat.reduce((acc, curr) => acc / curr);
+      console.log(result);
+      this.setState({
+        result: result,
+        typed: '',
+      });
+    }
+  };
+
+  render() {
+    const { typed, result } = this.state;
     return (
       <div className='teste'>
         <main>
           <section className='main'>
-            <div data-testid='result' className='red'>
-              {typed}
+            <div data-testid='result' className='result-container'>
+              <span className='result'>{typed ? typed : result}</span>
             </div>
             <div className='hr-div'>
               <hr />
@@ -79,6 +125,7 @@ class Main extends Component {
                     type='button'
                     className='button-number'
                     id='equal-button'
+                    onClick={this.result}
                   >
                     =
                   </button>
