@@ -25,12 +25,22 @@ function Main() {
     setResult(result);
   };
 
+  const deleteExp = () => {
+    const newExp = expression.substring(0, expression.length - 1);
+    setExpression(newExp);
+  };
+
   return (
     <div className='teste'>
       <main>
         <section className='main'>
           <div data-testid='result' className='result-container'>
             <span className='result'>{result ? result : expression}</span>
+            <div className='delete-exp-btn-div'>
+              <button onClick={deleteExp} className='delete-exp-btn'>
+                Apagar
+              </button>
+            </div>
           </div>
           <div className='hr-div'>
             <hr />
