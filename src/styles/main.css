@@ -55,6 +55,8 @@ hr {
 
 .delete-exp-btn {
   padding: 8px;
+  width: 45px;
+  cursor: pointer;
 }
 
 .buttons-father {

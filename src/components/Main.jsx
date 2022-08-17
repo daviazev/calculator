@@ -5,6 +5,7 @@ import { evaluate } from 'mathjs';
 import '../styles/main.css';
 import '../styles/numbers.css';
 import { useState } from 'react';
+import img from '../delete.svg';
 
 function Main() {
   const [expression, setExpression] = useState('');
@@ -37,9 +38,15 @@ function Main() {
           <div data-testid='result' className='result-container'>
             <span className='result'>{result ? result : expression}</span>
             <div className='delete-exp-btn-div'>
-              <button onClick={deleteExp} className='delete-exp-btn'>
+              {/* <button onClick={deleteExp} className='delete-exp-btn'>
                 Apagar
-              </button>
+              </button> */}
+              <img
+                src={img}
+                onClick={deleteExp}
+                className='delete-exp-btn'
+                alt=''
+              />
             </div>
           </div>
           <div className='hr-div'>
