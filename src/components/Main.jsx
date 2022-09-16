@@ -9,21 +9,33 @@ import img from '../delete.svg';
 
 function Main() {
   const [expression, setExpression] = useState('');
-  const [result, setResult] = useState('');
+  const [parenToggle, setParenToggle] = useState(true);
+  console.log(expression);
+  // const [result, setResult] = useState('');
+
+  // console.log(evaluate('2*(6)*(5)'));
 
   const handleClick = ({ target: { value } }) => {
-    // if (value === 'x') value = '*';
-    setExpression(expression + value);
+    if (value === '( )') {
+      parenToggle
+        ? setExpression(expression + '*(')
+        : setExpression(expression + ')');
+      setParenToggle(!parenToggle);
+    } else {
+      console.log('xablau');
+      setExpression(expression + value);
+    }
   };
 
   const clean = () => {
     setExpression('');
-    setResult('');
+    // setResult('');
   };
 
   const showResult = () => {
     const result = evaluate(expression);
-    setResult(result);
+    setExpression(result);
+    // setResult(result);
   };
 
   const deleteExp = () => {
@@ -32,75 +44,68 @@ function Main() {
   };
 
   return (
-    <div className='teste'>
-      <main>
-        <section className='main'>
-          <div data-testid='result' className='result-container'>
-            <span className='result'>{result ? result : expression}</span>
-            <div className='delete-exp-btn-div'>
-              {/* <button onClick={deleteExp} className='delete-exp-btn'>
-                Apagar
-              </button> */}
-              <img
-                src={img}
-                onClick={deleteExp}
-                className='delete-exp-btn'
-                alt=''
-              />
-            </div>
+    <main>
+      <section data-testid='result' className='result-container'>
+        <span className='result'>{expression}</span>
+        <div className='delete-exp-btn-div'>
+          <img
+            src={img}
+            onClick={deleteExp}
+            className='delete-exp-btn'
+            alt=''
+          />
+        </div>
+      </section>
+      <div className='hr-div'>
+        <hr />
+      </div>
+      <div className='buttons-father'>
+        <div data-testid='calculator-body' className='numbers'>
+          <div className='numbers-column'>
+            <button
+              type='button'
+              id='clear-button'
+              className='button-number'
+              onClick={clean}
+            >
+              C
+            </button>
+            <Numbers handleClick={handleClick} value={7} />
+            <Numbers handleClick={handleClick} value={4} />
+            <Numbers handleClick={handleClick} value={1} />
+            <Numbers handleClick={handleClick} value='+/-' />
           </div>
-          <div className='hr-div'>
-            <hr />
+          <div className='numbers-column'>
+            <Signs handleClick={handleClick} value='( )' />
+            <Numbers handleClick={handleClick} value={8} />
+            <Numbers handleClick={handleClick} value={5} />
+            <Numbers handleClick={handleClick} value={2} />
+            <Numbers handleClick={handleClick} value={0} />
           </div>
-          <div className='buttons-father'>
-            <div data-testid='calculator-body' className='numbers'>
-              <div className='numbers-column'>
-                <button
-                  type='button'
-                  id='clear-button'
-                  className='button-number'
-                  onClick={clean}
-                >
-                  C
-                </button>
-                <Numbers handleClick={handleClick} value={7} />
-                <Numbers handleClick={handleClick} value={4} />
-                <Numbers handleClick={handleClick} value={1} />
-                <Numbers handleClick={handleClick} value='+/-' />
-              </div>
-              <div className='numbers-column'>
-                <Signs value='( )' />
-                <Numbers handleClick={handleClick} value={8} />
-                <Numbers handleClick={handleClick} value={5} />
-                <Numbers handleClick={handleClick} value={2} />
-                <Numbers handleClick={handleClick} value={0} />
-              </div>
-              <div className='numbers-column'>
-                <Signs value='%' />
-                <Numbers handleClick={handleClick} value={9} />
-                <Numbers handleClick={handleClick} value={6} />
-                <Numbers handleClick={handleClick} value={3} />
-                <Numbers handleClick={handleClick} value='.' />
-              </div>
-              <div className='numbers-column'>
-                <Signs handleClick={handleClick} value='/' />
-                <Signs handleClick={handleClick} value='*' />
-                <Signs handleClick={handleClick} value='-' />
-                <Signs handleClick={handleClick} value='+' />
-                <button
-                  type='button'
-                  className='button-number'
-                  id='equal-button'
-                  onClick={showResult}
-                >
-                  =
-                </button>
-              </div>
-            </div>
+          <div className='numbers-column'>
+            <Signs value='%' />
+            <Numbers handleClick={handleClick} value={9} />
+            <Numbers handleClick={handleClick} value={6} />
+            <Numbers handleClick={handleClick} value={3} />
+            <Numbers handleClick={handleClick} value='.' />
           </div>
-        </section>
-      </main>
-    </div>
+          <div className='numbers-column'>
+            <Signs handleClick={handleClick} value='/' />
+            <Signs handleClick={handleClick} value='*' />
+            <Signs handleClick={handleClick} value='-' />
+            <Signs handleClick={handleClick} value='+' />
+            <button
+              type='button'
+              className='button-number'
+              id='equal-button'
+              onClick={showResult}
+            >
+              =
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
 
