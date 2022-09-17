@@ -14,14 +14,22 @@ function Main() {
   const [parenToggle, setParenToggle] = useState(true);
   const [resultToggle, setResultToggle] = useState(false);
   const [ableSigns, setableSigns] = useState(true);
+  const [pointToggle, setPointToggle] = useState(false);
 
   useEffect(() => {
     const lastChar = expression[expression.length - 1];
+    // console.log(lastChar);
     if (isNaN(parseFloat(lastChar)) && ableSigns) {
       setResultToggle(true);
     } else {
       setResultToggle(false);
       setableSigns(true);
+    }
+
+    if (lastChar === '.') {
+      setPointToggle(true);
+    } else {
+      setPointToggle(false);
     }
   }, [expression]);
 
@@ -42,7 +50,9 @@ function Main() {
       setExpression(expression + value);
     }
 
-    if (value === '.') setExpression(expression + '0.');
+    if (value === '.' && expression === '') {
+      setExpression(expression + '0.');
+    }
   };
 
   const clean = () => {
@@ -111,7 +121,11 @@ function Main() {
             <Numbers handleClick={handleClick} value={9} />
             <Numbers handleClick={handleClick} value={6} />
             <Numbers handleClick={handleClick} value={3} />
-            <Numbers handleClick={handleClick} value='.' />
+            <Numbers
+              handleClick={handleClick}
+              isDisabled={pointToggle}
+              value='.'
+            />
           </div>
           <div className='numbers-column'>
             <Signs
