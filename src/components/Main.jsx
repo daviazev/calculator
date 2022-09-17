@@ -6,10 +6,13 @@ import '../styles/main.css';
 import '../styles/numbers.css';
 import { useState } from 'react';
 import img from '../delete.svg';
+import linkedin from '../linkedin.svg';
 
 function Main() {
   const [expression, setExpression] = useState('');
   const [parenToggle, setParenToggle] = useState(true);
+  // const [resultToggle, setResultToggle] = useState(false);
+  // const [teste, setTeste] = useState(true);
 
   const handleClick = ({ target: { value } }) => {
     if (value === '( )') {
@@ -47,13 +50,15 @@ function Main() {
   const showResult = () => {
     const result = evaluate(expression);
     setExpression(result);
-    isAble();
+    isAble(true);
   };
 
   const deleteExp = () => {
     const newExp = expression.substring(0, expression.length - 1);
     setExpression(newExp);
   };
+
+  // console.log('-----', isAble());
 
   return (
     <main>
@@ -85,7 +90,8 @@ function Main() {
             <Numbers handleClick={handleClick} value={7} />
             <Numbers handleClick={handleClick} value={4} />
             <Numbers handleClick={handleClick} value={1} />
-            <Numbers handleClick={handleClick} value='+/-' />
+            <img src={linkedin} alt='linkedin' className='button-number' />
+            {/* <Numbers handleClick={handleClick} value='+/-' /> */}
           </div>
           <div className='numbers-column'>
             <Signs handleClick={handleClick} value='( )' />
@@ -102,10 +108,26 @@ function Main() {
             <Numbers handleClick={handleClick} value='.' />
           </div>
           <div className='numbers-column'>
-            <Signs handleClick={handleClick} isDisabled={isAble()} value='/' />
-            <Signs handleClick={handleClick} isDisabled={isAble()} value='*' />
-            <Signs handleClick={handleClick} isDisabled={isAble()} value='-' />
-            <Signs handleClick={handleClick} isDisabled={isAble()} value='+' />
+            <Signs
+              handleClick={handleClick}
+              isDisabled={isAble() === undefined ? true : isAble()}
+              value='/'
+            />
+            <Signs
+              handleClick={handleClick}
+              isDisabled={isAble() === undefined ? true : isAble()}
+              value='*'
+            />
+            <Signs
+              handleClick={handleClick}
+              isDisabled={isAble() === undefined ? true : isAble()}
+              value='-'
+            />
+            <Signs
+              handleClick={handleClick}
+              isDisabled={isAble() === undefined ? true : isAble()}
+              value='+'
+            />
             <button
               type='button'
               className='button-number'
