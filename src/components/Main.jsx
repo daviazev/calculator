@@ -7,12 +7,23 @@ import '../styles/numbers.css';
 import { useState } from 'react';
 import img from '../delete.svg';
 import linkedin from '../linkedin.svg';
+import { useEffect } from 'react';
 
 function Main() {
   const [expression, setExpression] = useState('');
   const [parenToggle, setParenToggle] = useState(true);
-  // const [resultToggle, setResultToggle] = useState(false);
-  // const [teste, setTeste] = useState(true);
+  const [resultToggle, setResultToggle] = useState(false);
+  const [ableSigns, setableSigns] = useState(true);
+
+  useEffect(() => {
+    const lastChar = expression[expression.length - 1];
+    if (isNaN(parseFloat(lastChar)) && ableSigns) {
+      setResultToggle(true);
+    } else {
+      setResultToggle(false);
+      setableSigns(true);
+    }
+  }, [expression]);
 
   const handleClick = ({ target: { value } }) => {
     if (value === '( )') {
@@ -39,26 +50,17 @@ function Main() {
     setParenToggle(true);
   };
 
-  const isAble = () => {
-    if (expression) {
-      const lastChar = expression[expression.length - 1];
-      if (isNaN(parseFloat(lastChar))) return true;
-      return false;
-    }
-  };
-
   const showResult = () => {
     const result = evaluate(expression);
     setExpression(result);
-    isAble(true);
+    setableSigns(false);
   };
 
   const deleteExp = () => {
-    const newExp = expression.substring(0, expression.length - 1);
+    const expToStr = expression.toString();
+    const newExp = expToStr.substring(0, expToStr.length - 1);
     setExpression(newExp);
   };
-
-  // console.log('-----', isAble());
 
   return (
     <main>
@@ -69,7 +71,7 @@ function Main() {
             src={img}
             onClick={deleteExp}
             className='delete-exp-btn'
-            alt=''
+            alt='delete button'
           />
         </div>
       </section>
@@ -90,8 +92,12 @@ function Main() {
             <Numbers handleClick={handleClick} value={7} />
             <Numbers handleClick={handleClick} value={4} />
             <Numbers handleClick={handleClick} value={1} />
-            <img src={linkedin} alt='linkedin' className='button-number' />
-            {/* <Numbers handleClick={handleClick} value='+/-' /> */}
+            <a
+              href='https://www.linkedin.com/in/davi-azevedo-a62267206/'
+              target='_blanck'
+            >
+              <img src={linkedin} alt='linkedin' className='button-number' />
+            </a>
           </div>
           <div className='numbers-column'>
             <Signs handleClick={handleClick} value='( )' />
@@ -110,22 +116,22 @@ function Main() {
           <div className='numbers-column'>
             <Signs
               handleClick={handleClick}
-              isDisabled={isAble() === undefined ? true : isAble()}
+              isDisabled={resultToggle}
               value='/'
             />
             <Signs
               handleClick={handleClick}
-              isDisabled={isAble() === undefined ? true : isAble()}
+              isDisabled={resultToggle}
               value='*'
             />
             <Signs
               handleClick={handleClick}
-              isDisabled={isAble() === undefined ? true : isAble()}
+              isDisabled={resultToggle}
               value='-'
             />
             <Signs
               handleClick={handleClick}
-              isDisabled={isAble() === undefined ? true : isAble()}
+              isDisabled={resultToggle}
               value='+'
             />
             <button
@@ -133,6 +139,7 @@ function Main() {
               className='button-number'
               id='equal-button'
               onClick={showResult}
+              disabled={resultToggle}
             >
               =
             </button>
