@@ -18,7 +18,6 @@ function Main() {
 
   useEffect(() => {
     const lastChar = expression[expression.length - 1];
-    // console.log(lastChar);
     if (isNaN(parseFloat(lastChar)) && ableSigns) {
       setResultToggle(true);
     } else {
@@ -31,6 +30,8 @@ function Main() {
     } else {
       setPointToggle(false);
     }
+
+    if (lastChar === ')') setResultToggle(false);
   }, [expression]);
 
   const handleClick = ({ target: { value } }) => {
